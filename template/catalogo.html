@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Tu Gusto Posadas</title>
+
+    <!-- CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Estilo personalizado para el catalogo -->
+    <style>
+        .cartaProducto {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            opacity: 0; /* Inicialmente oculto */
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+        .cartaProducto:hover {
+            transform: scale(1.1);
+        }
+        .cartaProducto .card-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .cartaProducto:hover .card-body {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .cartaProducto {
+                opacity: 0; /* Inicialmente oculto */
+                animation: fadeIn 0.8s ease-in-out forwards;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f0eeee;">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+            <!-- Logo -->
+            <a class="navbar-brand" href="../index.html">
+                <img src="../assets/images/logo.jpg" alt="Logo A Tu Gusto Posadas" height="40"
+                    class="d-inline-block align-text-top">
+            </a>
+
+            <!-- Botón de menú responsivo -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Contenido del navbar -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <!-- Enlaces de navegación -->
+                <ul class="navbar-nav me-3 mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogo.html#catalogo">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de</a>
+                    </li>
+                </ul>
+
+                <!-- Barra de búsqueda -->
+                <form class="d-flex align-items-center" action="#" method="get">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Buscar productos..." name="busqueda"
+                            id="busqueda" aria-label="Buscar">
+                        <button class="btn btn-primary" type="submit" aria-label="Buscar">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sección derecha (Carrito y perfil) -->
+            <div class="d-flex align-items-center">
+
+                <!-- Carrito -->
+                <a href="#" class="text-reset me-3 position-relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge bg-danger text-white position-absolute top-0 start-100 translate-middle">0</span>
+                </a>
+
+                <!-- Menú desplegable del usuario -->
+                <div class="dropdown">
+                    <a class="dropdown-toggle d-flex align-items-center" role="button" data-mdb-toggle="dropdown"
+                        aria-expanded="false">
+                        <img src="https://cdn.pixabay.com/photo/2021/06/15/16/11/man-6339003_1280.jpg"
+                            class="rounded-circle" width="30" height="30" alt="Avatar" loading="lazy">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a href="#" class="dropdown-item">Ir al perfil</a></li>
+                        <li><a href="#" class="dropdown-item">Mis pedidos</a></li>
+                        <li><a href="#" class="dropdown-item">Gestionar</a></li>
+                        <li><a class="dropdown-item btnLogout" pag-redirect="/logout">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+  
+
+    <!-- Productos -->
+    <div class="container mt-5">
+
+        <!-- Filtros -->
+        <form method="get" action="#" class="mt-5">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="categoria" class="form-label">Categoría</label>
+                    <select id="categoria" name="categoria" class="form-select form-control">
+                        <option value="" disabled selected>Seleccione una Categoría</option>
+                        <option value="">Llaveros</option>
+                        <option value="">Cuadernos</option>
+                        <option value="">Corte Laser</option>
+                        <option value="">Remeras</option>
+                        <option value="">Stickers</option>
+                        <option value="">Equipos</option>
+                        <option value="">Lonas</option>
+                        <option value="">Gorras</option>
+                        <option value="">Uniformes</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="precio" class="form-label">Precio máximo ($)</label>
+                    <input type="number" class="form-control" id="precio" name="precio" min="1" max="1000000">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="descuento" class="form-label">Descuento mínimo (%)</label>
+                    <input type="number" class="form-control" id="descuento" name="descuento" min="1" max="100">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+
+        <!-- Catalogo -->
+        <div class="container mt-5" id="catalogo">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0 fw-bold">Catalogo de productos</h2>
+                <a href="../index.html"  class="btn btn-outline-primary btn-sm rounded-pill px-4" href="#">Voler</a>
+            </div>
+        
+            <div class="row"> <!-- Usamos una fila -->
+                <!-- Producto 1 -->
+                <div class="col-md-3 col-sm-6 p-3"> <!-- Columnas adaptativas -->
+                    <div class="card shadow-3-strong h-100 cartaProducto">
+                        <div class="card-img-container" style="height: 250px; overflow: hidden;">
+                            <img src="../assets/images/img1.jpg" class="card-img-top w-100" alt="Producto 1" style="object-fit: cover; height: 100%;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Producto 1</h5>
+                            <p class="card-text">Descripción del producto 1</p>
+                            <p class="card-text"><strong>$100.00</strong></p>
+                            <a href="#" class="btn btn-primary">Ver Producto</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Producto 2 -->
+                <div class="col-md-3 col-sm-6 p-3">
+                    <div class="card shadow-3-strong h-100 cartaProducto">
+                        <div class="card-img-container" style="height: 250px; overflow: hidden;">
+                            <img src="../assets/images/img2.jpg" class="card-img-top w-100" alt="Producto 2" style="object-fit: cover; height: 100%;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Producto 2</h5>
+                            <p class="card-text">Descripción del producto 2</p>
+                            <p class="card-text"><strong>$200.00</strong></p>
+                            <a href="#" class="btn btn-primary">Ver Producto</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Producto 3 -->
+                <div class="col-md-3 col-sm-6 p-3">
+                    <div class="card shadow-3-strong h-100 cartaProducto">
+                        <div class="card-img-container" style="height: 250px; overflow: hidden;">
+                            <img src="../assets/images/img3.jpg" class="card-img-top w-100" alt="Producto 3" style="object-fit: cover; height: 100%;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Producto 3</h5>
+                            <p class="card-text">Descripción del producto 3</p>
+                            <p class="card-text"><strong>$300.00</strong></p>
+                            <a href="#" class="btn btn-primary">Ver Producto</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Producto 4 -->
+                <div class="col-md-3 col-sm-6 p-3">
+                    <div class="card shadow-3-strong h-100 cartaProducto">
+                        <div class="card-img-container" style="height: 250px; overflow: hidden;">
+                            <img src="../assets/images/img4.jpg" class="card-img-top w-100" alt="Producto 4" style="object-fit: cover; height: 100%;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Producto 4</h5>
+                            <p class="card-text">Descripción del producto 4</p>
+                            <p class="card-text"><strong>$400.00</strong></p>
+                            <a href="#" class="btn btn-primary">Ver Producto</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Producto 5 -->
+                <div class="col-md-3 col-sm-6 p-3">
+                    <div class="card shadow-3-strong h-100 cartaProducto">
+                        <div class="card-img-container" style="height: 250px; overflow: hidden;">
+                            <img src="../assets/images/img5.jpg" class="card-img-top w-100" alt="Producto 5" style="object-fit: cover; height: 100%;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Producto 5</h5>
+                            <p class="card-text">Descripción del producto 5</p>
+                            <p class="card-text"><strong>$500.00</strong></p>
+                            <a href="#" class="btn btn-primary">Ver Producto</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Producto 6 -->
+                <div class="col-md-3 col-sm-6 p-3">
+                    <div class="card shadow-3-strong h-100 cartaProducto">
+                        <div class="card-img-container" style="height: 250px; overflow: hidden;">
+                            <img src="../assets/images/img6.jpg" class="card-img-top w-100" alt="Producto 5" style="object-fit: cover; height: 100%;">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Producto 6</h5>
+                            <p class="card-text">Descripción del producto 6</p>
+                            <p class="card-text"><strong>$600.00</strong></p>
+                            <a href="#" class="btn btn-primary">Ver Producto</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start mt-5 p-3">
+        <div class="text-center p-3">
+            <p>&copy; 2025 A Tu Gusto Posadas</p>
+            <p>Contacto: <a href="https://www.instagram.com/atugustoposadas?igsh=Nmo3YXUyZmdhZGM4">Instagram</a></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/js/all.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Script personalizado para catalogo de productos -->
+    <script>
+        // Permite cargar las imagen por partes
+        document.addEventListener("DOMContentLoaded", function () {
+            const productos = document.querySelectorAll('.cartaProducto');
+            console.log(productos)
+            productos.forEach((producto, index) => {
+                setTimeout(() => {
+                    producto.style.animationDelay = `${index * 0.3}s`; // Ajusta el retraso
+                    producto.style.opacity = '1';
+                }, index * 355); // Ajusta el tiempo entre productos
+            });
+        });
+    
+        // Sirve para realizar un desplazamiento sueve
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+    
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+
+
+
+</html>
