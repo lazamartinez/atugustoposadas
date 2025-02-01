@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <!-- Incluyendo Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 70px;
+        }
+        
+        .product-container {
+            background: #fff;
+            border-radius: 10px;
+            border-top: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .main-image{
+            padding-left: 200px;
+        }
+        .product-image-main {
+            max-width: 100%;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .product-image-main:hover {
+            transform: scale(1.01);
+        }
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .thumbnail {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        .thumbnail:hover {
+            border-color: #007bff;
+        }
+        .thumbnail.active {
+            border-color: #007bff;
+        }
+        .product-info {
+            padding: 20px;
+        }
+        .product-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .product-rating {
+            color: #ffc107;
+            font-size: 1rem;
+        }
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #28a745;
+        }
+        .product-old-price {
+            text-decoration: line-through;
+            color: #6c757d;
+            font-size: 1rem;
+        }
+        .product-actions .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        .product-actions .btn:hover {
+            transform: translateY(-2px);
+        }
+        .product-details {
+            margin-top: 30px;
+        }
+        .product-details ul {
+            list-style: none;
+            padding: 0;
+        }
+        .product-details ul li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .product-details ul li i {
+            margin-right: 10px;
+            color: #007bff;
+        }
+        .related-products {
+            margin-top: 40px;
+        }
+        .related-products h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .fa-shopping-cart{
+            color: white;
+        }
+        .related-product-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .related-product-card:hover {
+            transform: translateY(-5px);
+        }
+        .related-product-card img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .related-product-card h4 {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #333;
+        }
+        .related-product-card p {
+            color: #28a745;
+            font-weight: 600;
+        }
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .quantity-selector button {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .quantity-selector input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin: 0 10px;
+        }
+        .shipping-calculator {
+            margin-top: 20px;
+        }
+        .shipping-calculator input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .shipping-calculator button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .shipping-calculator button:hover {
+            background-color: #0056b3;
+        }
+        .warranty-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        .warranty-section h4 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .warranty-section p {
+            color: #555;
+        }
+        .faq-section {
+            margin-top: 20px;
+        }
+        .faq-section h4 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .faq-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .faq-section ul li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .compare-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/index.html">
+            <img
+              src="/assets/images/logo.jpg"
+              alt="Logo A Tu Gusto Posadas"
+              height="40"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-3 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" href="index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="template/catalogo.html#catalogo"
+                  >Catálogo</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Acerca de</a>
+              </li>
+            </ul>
+            <form class="d-flex align-items-center" action="#" method="get">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  type="search"
+                  placeholder="Buscar productos..."
+                  name="busqueda"
+                  id="busqueda"
+                  aria-label="Buscar"
+                />
+                <button class="btn btn-primary" type="submit" aria-label="Buscar">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="d-flex align-items-center">
+            <a href="#" class="text-reset me-3 position-relative">
+              <i class="fas fa-shopping-cart"></i>
+              <span
+                class="badge bg-danger text-white position-absolute top-0 start-100 translate-middle"
+                >0</span
+              >
+            </a>
+            <div class="dropdown">
+              <a
+                class="dropdown-toggle d-flex align-items-center"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="https://cdn.pixabay.com/photo/2021/06/15/16/11/man-6339003_1280.jpg"
+                  class="rounded-circle"
+                  width="30"
+                  height="30"
+                  alt="Avatar"
+                  loading="lazy"
+                />
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a href="#" class="dropdown-item">Ir al perfil</a></li>
+                <li><a href="#" class="dropdown-item">Mis pedidos</a></li>
+                <li><a href="#" class="dropdown-item">Gestionar</a></li>
+                <li>
+                  <a class="dropdown-item btnLogout" pag-redirect="/logout"
+                    >Cerrar sesión</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <!-- Product Detail -->
+    <div class="container product-container">
+        <div class="row">
+            <!-- Product Images -->
+            <div class="col-md-6">
+                <!-- Imagen principal -->
+                <img id="main-image" src="/assets/images/img1.jpg" alt="Producto" class="product-image-main">
+                <!-- Grid de miniaturas -->
+                <div class="thumbnail-grid">
+                    <img src="/assets/images/img1.jpg" alt="Miniatura 1" class="thumbnail active" onclick="changeImage('/assets/images/img1.jpg', this)">
+                    <img src="/assets/images/img1.jpg" alt="Miniatura 2" class="thumbnail" onclick="changeImage('/assets/images/img2.jpg', this)">
+                    <img src="/assets/images/img1.jpg" alt="Miniatura 3" class="thumbnail" onclick="changeImage('/assets/images/img3.jpg', this)">
+                    <img src="/assets/images/img1.jpg" alt="Miniatura 4" class="thumbnail" onclick="changeImage('/assets/images/img4.jpg', this)">
+                    <img src="/assets/images/img1.jpg" alt="Miniatura 5" class="thumbnail" onclick="changeImage('/assets/images/img5.jpg', this)">
+                </div>
+            </div>
+            <!-- Product Information -->
+            <div class="col-md-6 product-info">
+                <h1 class="product-title">Silla de Comedor Minimalista Nórdica</h1>
+                <p class="product-rating">⭐⭐⭐⭐☆ 3.7 / 320 opiniones</p>
+                <p class="text-success"><i class="fas fa-check-circle"></i> En stock</p>
+                <p class="text-muted">Tamaño:</p>
+                <div class="d-flex">
+                    <span class="w-6 h-6 bg-purple rounded-circle me-2"></span>
+                    <span class="w-6 h-6 bg-brown rounded-circle"></span>
+                </div>
+                <p class="product-price">$98.00 <span class="product-old-price">$128.00</span></p>
+                <!-- Selector de cantidad -->
+                <div class="quantity-selector">
+                    <button onclick="decreaseQuantity()">-</button>
+                    <input type="number" id="quantity" value="1" min="1">
+                    <button onclick="increaseQuantity()">+</button>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-primary"><i class="fas fa-cart-plus"></i> Añadir al carrito</button>
+                    <button class="btn btn-outline-secondary"><i class="fas fa-bolt"></i> Comprar ahora</button>
+                </div>
+                <!-- Calculadora de envío -->
+                <div class="shipping-calculator">
+                    <h4>Calcular envío</h4>
+                    <input class"form-control" type="text" id="postal-code" placeholder="Ingresa tu código postal">
+                    <button onclick="calculateShipping()" class="btn btn-primary"></i> Calcular</button>
+                    <p id="shipping-result" class="mt-1"></p>
+                </div>
+                <!-- Garantía extendida -->
+                <div class="warranty-section">
+                    <h4>Garantía extendida</h4>
+                    <p>Protege tu producto con una garantía extendida de 3 años por solo $20.00.</p>
+                    <button class="btn btn-secundary"><i class="fas fa-cart-plus"></i> Añadir garantía</button>
+                </div>
+            </div>
+        </div>
+        <!-- Product Specifications -->
+        <div class="mt-4">
+            <h3>Especificaciones</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet augue a eros suscipit, sit amet lacinia risus placerat.</p>
+        </div>
+        <!-- Product Reviews -->
+        <div class="mt-4">
+            <h3>Reseñas de clientes</h3>
+            <div class="review">
+                <p class="review-author"><strong>Juan Pérez</strong></p>
+                <p class="review-rating">⭐⭐⭐⭐☆</p>
+                <p class="review-text">Excelente producto, muy cómodo y de buena calidad.</p>
+            </div>
+            <div class="review">
+                <p class="review-author"><strong>Ana Gómez</strong></p>
+                <p class="review-rating">⭐⭐⭐☆☆</p>
+                <p class="review-text">Buen producto, pero el color no es exactamente como en la foto.</p>
+            </div>
+            <div class="review">
+                <p class="review-author"><strong>Carlos Ruiz</strong></p>
+                <p class="review-rating">⭐⭐⭐⭐⭐</p>
+                <p class="review-text">Muy satisfecho con la compra, llegó antes de lo esperado.</p>
+            </div>
+        </div>
+        <!-- Related Products -->
+        <div class="related-products">
+            <h3>Productos relacionados</h3>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="related-product-card">
+                        <img src="/assets/images/img2.jpg" alt="Producto relacionado 1">
+                        <h4>Producto 1</h4>
+                        <p>$120.00</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="related-product-card">
+                        <img src="/assets/images/img3.jpg" alt="Producto relacionado 2">
+                        <h4>Producto 2</h4>
+                        <p>$250.00</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="related-product-card">
+                        <img src="/assets/images/img4.jpg" alt="Producto relacionado 3">
+                        <h4>Producto 3</h4>
+                        <p>$450.00</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="related-product-card">
+                        <img src="/assets/images/img5.jpg" alt="Producto relacionado 4">
+                        <h4>Producto 4</h4>
+                        <p>$80.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Footer -->
+     <footer
+     class="text-white text-center text-lg-start mt-5 p-3"
+     style="background-color: #343a40"
+     ;
+   >
+     <div class="text-center p-3">
+       <p>&copy; 2025 A Tu Gusto Posadas</p>
+       <p>
+         Contacto:
+         <a
+           href="https://www.instagram.com/atugustoposadas?igsh=Nmo3YXUyZmdhZGM4"
+           class="text-white"
+           >Instagram</a
+         >
+       </p>
+     </div>
+   </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Función para cambiar la imagen principal al hacer clic en una miniatura
+        function changeImage(src, element) {
+            document.getElementById('main-image').src = src;
+            // Remover la clase 'active' de todas las miniaturas
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            // Añadir la clase 'active' a la miniatura seleccionada
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
